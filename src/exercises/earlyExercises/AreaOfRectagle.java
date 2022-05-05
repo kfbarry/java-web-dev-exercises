@@ -1,4 +1,4 @@
-package exercises;
+package exercises.earlyExercises;
 import java.util.Scanner;
 public class AreaOfRectagle {
 

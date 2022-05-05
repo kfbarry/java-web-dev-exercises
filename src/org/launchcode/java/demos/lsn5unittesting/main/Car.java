@@ -1,5 +1,7 @@
 package org.launchcode.java.demos.lsn5unittesting.main;
 
+import java.util.Objects;
+
 public class Car {
 
     private String make;
@@ -47,6 +49,10 @@ public class Car {
     }
 
     public void setGasTankLevel(double gasTankLevel) {
+        if (gasTankLevel > this.gasTankSize){
+            throw new IllegalArgumentException("Cannot exceed tank size");
+        }
+
         this.gasTankLevel = gasTankLevel;
     }
 
@@ -85,4 +91,20 @@ public class Car {
         this.odometer += milesAbleToTravel;
     }
 
+    public void addGas(double gas){
+     this.setGasTankLevel(gas + this.getGasTankLevel());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car)) return false;
+        Car car = (Car) o;
+        return getGasTankSize() == car.getGasTankSize() && Double.compare(car.getGasTankLevel(), getGasTankLevel()) == 0 && Double.compare(car.getMilesPerGallon(), getMilesPerGallon()) == 0 && Double.compare(car.getOdometer(), getOdometer()) == 0 && getMake().equals(car.getMake()) && getModel().equals(car.getModel());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMake(), getModel(), getGasTankSize(), getGasTankLevel(), getMilesPerGallon(), getOdometer());
+    }
 }
